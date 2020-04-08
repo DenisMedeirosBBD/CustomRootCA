@@ -3,7 +3,9 @@ A simple script that generates a custom root CA and certificates signed by it.
 
 Follow the steps below to use it:
 
-1. Edit the files `ca.cnf` and `crt.cn` with information about your company.
+1. Edit the files `ca.cnf` and `crt.cn` with information about your company and `generate.sh` with the filenames you want. 
+
+Important: Do not forget to edit the line `subjectAltName` in `crt.cn`.
 
 2. Run the script `generate.sh` and it will create the root CA and a certificate signed by it. 
 
@@ -38,5 +40,37 @@ server {
 
 ```
 
-4. Finally, you need to distributed your CA (root.crt) to clients (browsers, systems, etc).
+4. Finally, you need to distribute your CA (root.crt) to clients (browsers, systems, etc).
 
+### Extra:
+
+If you want to simulate a web server instead of configuring a HTTP server, just run:
+
+```
+openssl s_server -accept 8080 -cert mycompany.crt -key mycompany.key  -CAfile rootCA.crt  -www
+```
+And in your client edit your `/etc/hosts` point to the IP of the server you are running the command above. If running in your local machine:
+
+```
+# /etc/hosts
+
+127.0.0.1 mycompany.ca
+```
+
+Finally, go to a web browser that already have the CA file and try to open the URL `https://mycompany.ca`. If it works, you should see an output in your browser like:
+
+```
+Secure Renegotiation IS supported
+Ciphers supported in s_server binary
+TLSv1/SSLv3:ECDHE-RSA-AES256-GCM-SHA384TLSv1/SSLv3:ECDHE-ECDSA-AES256-GCM-SHA384
+TLSv1/SSLv3:ECDHE-RSA-AES256-SHA384  TLSv1/SSLv3:ECDHE-ECDSA-AES256-SHA384
+TLSv1/SSLv3:ECDHE-RSA-AES256-SHA     TLSv1/SSLv3:ECDHE-ECDSA-AES256-SHA   
+TLSv1/SSLv3:DH-DSS-AES256-GCM-SHA384 TLSv1/SSLv3:DHE-DSS-AES256-GCM-SHA384
+TLSv1/SSLv3:DH-RSA-AES256-GCM-SHA384 TLSv1/SSLv3:DHE-RSA-AES256-GCM-SHA384
+TLSv1/SSLv3:DHE-RSA-AES256-SHA256    TLSv1/SSLv3:DHE-DSS-AES256-SHA256    
+TLSv1/SSLv3:DH-RSA-AES256-SHA256     TLSv1/SSLv3:DH-DSS-AES256-SHA256     
+TLSv1/SSLv3:DHE-RSA-AES256-SHA       TLSv1/SSLv3:DHE-DSS-AES256-SHA       
+TLSv1/SSLv3:DH-RSA-AES256-SHA        TLSv1/SSLv3:DH-DSS-AES256-SHA        
+TLSv1/SSLv3:DHE-RSA-CAMELLIA256-SHA  TLSv1/SSLv3:DHE-DSS-CAMELLIA256-SHA
+[...]  
+```
