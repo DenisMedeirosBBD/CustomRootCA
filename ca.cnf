@@ -1,0 +1,17 @@
+[req]
+days                   = 3650
+distinguished_name     = req_distinguished_name
+x509_extensions        = v3_ca
+prompt = no
+
+[req_distinguished_name]
+countryName            = CA
+stateOrProvinceName    = BC
+localityName           = Vancouver
+organizationName       = MyCompany
+organizationalUnitName = Networking
+commonName             = MyCompany CA
+emailAddress           = email@mycompany.ca
+
+[v3_ca]
+basicConstraints       = critical,CA:TRUE

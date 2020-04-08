@@ -1,0 +1,20 @@
+[req]
+days                   = 3650
+serial	               = 1
+distinguished_name     = req_distinguished_name
+req_extensions         = v3_req
+prompt = no
+
+[req_distinguished_name]
+countryName            = CA
+stateOrProvinceName    = BC
+localityName           = Vancouver
+organizationName       = MyCompany
+organizationalUnitName = Networking
+commonName             = *.mycompany.ca
+emailAddress           = email@mycompany.ca
+
+[ v3_req ]
+basicConstraints       = CA:FALSE
+keyUsage               = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign
+subjectAltName         = DNS:*.mycompany.ca,DNS:test.mycompany.ca
