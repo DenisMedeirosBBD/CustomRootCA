@@ -44,6 +44,12 @@ server {
 
 ### Extra:
 
+If you want see the content of the certificate or CA file, you can run:
+
+```
+openssl x509 -noout -text -in star.bbd.lan.crt
+```
+
 If you want to simulate a web server instead of configuring a HTTP server, just run:
 
 ```
