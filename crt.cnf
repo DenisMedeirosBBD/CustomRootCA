@@ -14,7 +14,12 @@ organizationalUnitName = Networking
 commonName             = *.mycompany.ca
 emailAddress           = email@mycompany.ca
 
-[ v3_req ]
+[v3_req]
 basicConstraints       = CA:FALSE
-keyUsage               = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign
-subjectAltName         = DNS:*.mycompany.ca,DNS:test.mycompany.ca
+keyUsage               = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+# keyUsage               = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign
+subjectAltName         = @alt_names
+
+[alt_names]
+DNS.1 = *.mycompany.ca
+# IP.1 = 0.0.0.0
